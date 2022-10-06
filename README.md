@@ -52,7 +52,7 @@ function  sample(rvs::Vector{T} where {T<:UnivariateDistribution}, n::Int)
 end
 ```
 
-which will sample from each of the `m` random variables given in the vector `rvs` and return an `mxn` matrix of samples. Use the function `rand(d,n)` to sample from a distribution.
+which will sample from each of the `m` random variables given in the vector `rvs` and return an `nxm` matrix of samples. Use the function `rand(d,n)` to sample from a distribution.
 
 ### Task 1.2
 
