@@ -8,6 +8,17 @@ Install the latest Julia version from <https://julialang.org>. Alternatively use
 
 The suggested editor is Visual Studio Code (<https://code.visualstudio.com/>) with the Julia extension but feel free to use any editor you are comfortable with.
 
+## Dependencies
+
+To install the dependencies in your project environment run
+
+```julia
+] activate . #activates the project environment
+] instantiate
+```
+
+In the Julia REPL `]` is used to switch to `Pkg`. Visual Studio Code can automatically activate the project environment when starting the REPL.
+
 ## Example model: Cantilever beam
 
 The model we  will be using is of simple cantilever beam subject to a tip load. The parameters and random variables are as follows:
