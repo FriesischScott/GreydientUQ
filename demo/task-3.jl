@@ -25,6 +25,6 @@ function performance(x::Vector)
     return max_displacement .- x
 end
 
-pf, x, cov = probability_of_failure(rvs, m, performance, 10000000)
+pf, x, cov = probability_of_failure(rvs, m, performance, MonteCarlo(10000000))
 
 println("Probability of failure: $pf")

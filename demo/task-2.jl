@@ -20,7 +20,7 @@ end
 
 m = Model(displacement)
 
-x = sample(rvs, 1000)
+x = sample(rvs, MonteCarlo(1000))
 
 w = evaluate(m, x)
 
