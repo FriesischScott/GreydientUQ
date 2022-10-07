@@ -107,3 +107,43 @@ $cov = \frac{\sqrt{\hat{pf} - \hat{pf}^2}/N}{\hat{pf}}$
 ### Task 3.2
 
 Test your method by updating the script `demo/task-3.jl`. Define the necessary parameters and random variables as well as the `displacement` function and model like in Task 2. Afterwards use your new method to compute the failure probability for a maximum displacement of `0.01`. With a sufficient number of samples, the `pf` should converge to `0.072`.
+
+## Task 4: Quasi-Monte Carlo
+
+In this task we will make use of Julia's multiple dispatch to allow for the easy extension of our probability of failure method to multiple Quasi-Monte Carlo sampling methods.
+
+### Task 4.1
+
+To begin, add the package `QuasiMonteCarlo` (<https://github.com/SciML/QuasiMonteCarlo.jl>) as a dependency to the module and add the corresponding `using` statement in `src/GreydientUQ.jl`.
+
+Next, we define an `abstract` super type for all our simulations as
+```julia
+abstract type AbstractMonteCarlo end
+```
+
+Then, define a `struct` `MonteCarlo` that inherits from `AbstractMonteCarlo` using `<:` and has the number of samples to use `n` as an `Integer` property. Additionally, define another `struct` of the same form for `SobolSampling`.
+
+### Task 4.2
+
+Update the `sample` method defined in Task 1.1 to accept an object of type `MonteCarlo` instead of the number of samples. Then update the `probability_of_failure` method to accept any object of the `abstract` type `AbstractMonteCarlo`. Update your scripts accordingly.
+
+### Task 4.3
+
+Finally, implement a second `sample` method for `SobolSampling`.
+
+```julia
+function  sample(rvs::Vector{T} where {T<:UnivariateDistribution}, sim::SobolSampling)
+...
+end
+```
+
+In this method you must first use the method provided by `QuasiMonteCarlo` to obtain samples of the Sobol' sequence in $[0,1]$-space. These are then transformed to the marginal distributions using the inverse transformation method. **Hint**: The inverse cdf in `Distributions` is called `quantile`.
+
+In this way, any simulation technique from `QuasiMonteCarlo` can be included by simply defining a new `struct` inheriting from `AbstractMonteCarlo` and adding the appropriate `sample` method.
+
+### Task 4.4
+
+Update the script `demo/task-4.jl` to compute the probability of failure with standard Monte Carlo simulation and Sobol sampling, then compare your solutions.
+
+
+
